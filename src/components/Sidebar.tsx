@@ -9,8 +9,8 @@ import { useEffect } from "react";
 
 const links = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/dashboard/chart", label: "Grafik Harian" },
-  { href: "/dashboard/reset", label: "Reset Saldo" },
+  { href: "/dashboard/chart", label: "Chart" },
+  // { href: "/dashboard/reset", label: "Reset Saldo" },
 ];
 
 export default function Sidebar({

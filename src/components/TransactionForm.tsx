@@ -78,7 +78,7 @@ export default function TransactionForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="amount">Jumlah</Label>
+          <Label htmlFor="amount">Jumlah Uang</Label>
           <Input
             id="amount"
             type="number"
