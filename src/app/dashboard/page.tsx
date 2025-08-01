@@ -63,12 +63,12 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <button
+          {/* <button
             onClick={() => signOut(auth)}
             className="bg-red-500 text-white text-sm px-4 py-2 rounded hover:bg-red-600 transition"
           >
             Logout
-          </button>
+          </button> */}
         </div>
 
         {/* Komponen utama */}

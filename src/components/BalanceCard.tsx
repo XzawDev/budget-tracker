@@ -13,6 +13,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Swal from "sweetalert2";
 
 export default function BalanceCard() {
   const [initialAmount, setInitialAmount] = useState<number>(0);
@@ -74,10 +75,42 @@ export default function BalanceCard() {
         },
         { merge: true }
       );
+      Swal.fire("Berhasil!", "Dana berhasil ditambahkan", "success");
       setNewIncome("");
       setShowInput(false);
     } catch (err) {
       console.error("Gagal menambahkan dana", err);
+      Swal.fire("Gagal!", "Terjadi kesalahan saat menambahkan dana", "error");
+    }
+  };
+
+  // Fungsi untuk reset saldo ke 0
+  const handleResetSaldo = async () => {
+    if (!uid) return;
+
+    const confirm = await Swal.fire({
+      title: "Setel Ulang Saldo?",
+      text: "Saldo akan disetel ulang menjadi 0.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, setel ulang",
+      cancelButtonText: "Batal",
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await setDoc(
+          doc(db, "users", uid, "settings", "budget"),
+          {
+            initialAmount: 0,
+          },
+          { merge: true }
+        );
+        Swal.fire("Berhasil", "Saldo berhasil disetel ulang", "success");
+      } catch (err) {
+        console.error("Gagal reset saldo", err);
+        Swal.fire("Gagal", "Tidak bisa reset saldo", "error");
+      }
     }
   };
 
@@ -116,9 +149,21 @@ export default function BalanceCard() {
           </Button>
         </div>
       ) : (
-        <Button onClick={() => setShowInput(true)} className="w-full sm:w-auto">
-          Tambah Dana
-        </Button>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <Button
+            onClick={() => setShowInput(true)}
+            className="w-full sm:w-auto"
+          >
+            Tambah Dana
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={handleResetSaldo}
+            className="w-full sm:w-auto"
+          >
+            Reset Saldo
+          </Button>
+        </div>
       )}
     </div>
   );
