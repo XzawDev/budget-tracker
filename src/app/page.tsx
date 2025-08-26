@@ -65,8 +65,8 @@ export default function LandingPage() {
 
         {/* Footer */}
         <footer className="text-center text-sm text-gray-500 border-t pt-6">
-          &copy; {new Date().getFullYear()} Budget Tracker by Alfa. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} Budget Tracker by XzawDev. All
+          rights reserved.
         </footer>
       </div>
     </main>
